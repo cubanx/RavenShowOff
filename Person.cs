@@ -21,15 +21,22 @@ namespace RavenShowOff
             }
         }
 
-        public Person(string name)
+        public Person()
         {
-            Name = name;
             PhoneNumbers = new List<PhoneNumber>();
         }
 
+        public Person(string firstName, string lastName) : this()
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
         public string Id { get; private set; }
-        public string Name { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MiddleInitial { get; set; }
+        public string Hometown { get; set; }
         public List<PhoneNumber> PhoneNumbers { get; set; }
-        
     }
 }

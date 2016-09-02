@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Person.cs" />
+    <Compile Include="PersonToV2Listener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.DocumentStoreHolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -14,12 +14,13 @@ namespace RavenShowOff
       RavenShowOff.exe save
       RavenShowOff.exe load <id>
       RavenShowOff.exe list
-      RavenShowOff.exe upgrade <app_version>
+      RavenShowOff.exe add_hometown <id> <hometown>
+      RavenShowOff.exe obliterate_bobs
 
     Options:
       save will save Bob M. Smiley
       load <id> will load whichever instance of Bob you want
-      list will list all the Bob's
+      list will list all the Bob'hometown
     ";
         const string DatabaseName = "CineSample";
 
@@ -38,7 +39,22 @@ namespace RavenShowOff
             if (arguments["list"].IsTrue)
                 ListBobs();
 
-            
+            if (arguments["add_hometown"].IsTrue)
+                SaveBobsHometown(arguments["<id>"].ToString(), arguments["<hometown>"].ToString());
+
+        }
+
+        private static void SaveBobsHometown(string idOfBob, string hometown)
+        {
+            var bob = Session.Load<Person>($"People/{idOfBob}");
+            var bobDoesNotExistForId = bob == null;
+            if (bobDoesNotExistForId)
+                Console.WriteLine($"No Bob found for {idOfBob}");
+            else
+            {
+                bob.Hometown = hometown;
+                Session.SaveChanges();
+            }
         }
 
         private static void LoadBob(string idOfBob)
@@ -64,7 +80,7 @@ namespace RavenShowOff
 
         private static void SaveBob()
         {
-            var person = new Person("Bob M. Smiley");
+            var person = new Person("Bob", "Smiley") {MiddleInitial = "N"};
             Session.Store(person);
             Console.WriteLine($"Got Id:{person.Id} for Bob.");
 

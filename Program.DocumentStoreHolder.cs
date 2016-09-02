@@ -20,6 +20,8 @@ namespace RavenShowOff
                     DefaultDatabase = "Northwind"
                 }.Initialize();
 
+                store.Listeners.RegisterListener(new PersonToV2Listener());
+
                 return store;
             }
         }
